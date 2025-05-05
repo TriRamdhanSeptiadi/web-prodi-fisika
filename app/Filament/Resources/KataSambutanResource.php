@@ -28,7 +28,13 @@ class KataSambutanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('foto')->required(),
+                Forms\Components\FileUpload::make('foto')
+                    ->label('Foto')
+                    ->image()
+                    ->imageEditor()
+                    ->imageResizeTargetWidth(1000)
+                    ->imageResizeTargetHeight(1700)
+                    ->required(),
                 Forms\Components\Select::make('status')
                     ->options([
                         'Kepala Program Studi Administrasi Bisnis' => 'Kepala Program Studi Administrasi Bisnis',
@@ -40,7 +46,8 @@ class KataSambutanResource extends Resource
                 Forms\Components\RichEditor::make('kata_sambutan')
                 ->visible(fn (Get $get) => $get('status') === 'Kepala Program Studi Administrasi Bisnis')
                 ->required(fn (Get $get): bool => $get('status') === 'Kepala Program Studi Administrasi Bisnis')
-                ->columnSpanFull(),
+                ->columnSpanFull()
+                ->label('Kata Sambutan'),
             ]);
     }
 
@@ -52,7 +59,9 @@ class KataSambutanResource extends Resource
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('nama'),
                 Tables\Columns\TextColumn::make('kata_sambutan')
-                    ->limit(50),
+                    ->limit(50)
+                    ->label('Kata Sambutan')
+                    ->html(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

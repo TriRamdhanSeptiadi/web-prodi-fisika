@@ -28,7 +28,8 @@ class SasaranKualitasResource extends Resource
         return $form
             ->schema([
                 Forms\Components\RichEditor::make('deskripsi')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->helperText('Teks singkat sasaran kualitas dosen, mahasiswa dan lulusan (opsional). Kosongkan jika tidak ada informasi tambahan.'),
             ]);
     }
 
@@ -37,7 +38,8 @@ class SasaranKualitasResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('deskripsi')
-                    ->limit(50),
+                    ->limit(50)
+                    ->html(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

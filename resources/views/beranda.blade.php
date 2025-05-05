@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
         <link rel="stylesheet" href="{{asset('css/responsive.css')}}"/>
         <link rel="stylesheet" href="{{asset('demos/hosting/hosting.css')}}" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body data-mobile-nav-style="full-screen-menu" data-mobile-nav-bg-color="">
         <!-- start header --> 
@@ -272,7 +273,7 @@
                             @if ($visiMisiTujuan && $visiMisiTujuan->visi)
                             <p class="lh-30 w-90 sm-w-100">{!! $visiMisiTujuan->visi !!}</p>
                             @endif
-                            <a href="/visi-misi-tujuan" class="hover-content d-flex justify-content-center align-items-center icon-box w-45px h-45px rounded-circle bg-base-color border-2"><i class="feather icon-feather-arrow-right text-dark-gray icon-small"></i></a>
+                            <a href="{{ url('/visi-misi-tujuan?tab=visi') }}" class="hover-content d-flex justify-content-center align-items-center icon-box w-45px h-45px rounded-circle bg-base-color border-2"><i class="feather icon-feather-arrow-right text-dark-gray icon-small"></i></a>
                         </div>
                     </div>
                     <!-- end process step item --> 
@@ -283,10 +284,10 @@
                         </div>
                         <span class="fs-19 fw-600 text-dark-gray mb-5px d-block position-relative">Misi</span>
                         <div class="position-relative pb-60px last-paragraph-no-margin">
-                            @if ($visiMisiTujuan && $visiMisiTujuan->misi)
-                            <p class="lh-30 w-90 sm-w-100">{!! $visiMisiTujuan->misi !!}</p>
+                            @if ($visiMisiTujuan && is_array($visiMisiTujuan->misi) && count($visiMisiTujuan->misi) > 0)
+                            <p class="lh-30 w-90 sm-w-100">{!! $visiMisiTujuan->misi[0]['text'] !!}</p>
                             @endif
-                            <a href="/visi-misi-tujuan" class="hover-content d-flex justify-content-center align-items-center icon-box w-45px h-45px rounded-circle bg-base-color border-2"><i class="feather icon-feather-arrow-right text-dark-gray icon-small"></i></a>
+                            <a href="{{ url('/visi-misi-tujuan?tab=misi') }}" class="hover-content d-flex justify-content-center align-items-center icon-box w-45px h-45px rounded-circle bg-base-color border-2"><i class="feather icon-feather-arrow-right text-dark-gray icon-small"></i></a>
                         </div>
                     </div>
                     <!-- end process step item --> 
@@ -297,10 +298,10 @@
                         </div>
                         <span class="fs-19 fw-600 text-dark-gray mb-5px d-block position-relative">Tujuan</span>
                         <div class="position-relative pb-60px last-paragraph-no-margin">
-                        @if ($visiMisiTujuan && $visiMisiTujuan->tujuan)
-                            <p class="lh-30 w-90 sm-w-100">{!! $visiMisiTujuan->tujuan !!}</p>
+                            @if ($visiMisiTujuan && is_array($visiMisiTujuan->tujuan) && count($visiMisiTujuan->tujuan) > 0)
+                            <p class="lh-30 w-90 sm-w-100">{!! $visiMisiTujuan->tujuan[0]['text'] !!}</p>
                             @endif
-                            <a href="/visi-misi-tujuan" class="hover-content d-flex justify-content-center align-items-center icon-box w-45px h-45px rounded-circle bg-base-color border-2"><i class="feather icon-feather-arrow-right text-dark-gray icon-small"></i></a>
+                            <a href="{{ url('/visi-misi-tujuan?tab=tujuan') }}" class="hover-content d-flex justify-content-center align-items-center icon-box w-45px h-45px rounded-circle bg-base-color border-2"><i class="feather icon-feather-arrow-right text-dark-gray icon-small"></i></a>
                         </div>
                     </div>
                     <!-- end process step item --> 
@@ -314,15 +315,20 @@
                 <h2 class="alt-font fw-400 text-dark-gray ls-minus-1px">Kata Sambutan</h2>
                 <div class="row align-items-center position-relative">
                     <!-- Kolom Gambar -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-5 ms-10">
                         @if ($pimpinanStaff && $pimpinanStaff->foto)
-                        <div class="image-container" data-bottom-top="transform: translateY(-80px)" data-top-bottom="transform: translateY(80px)">
-                            <img src="{{ asset('storage/' . $pimpinanStaff->foto) }}" alt="Informatika">
+                        <div class="image-container" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(30px)">
+                            <img 
+                                src="{{ asset('storage/' . $pimpinanStaff->foto) }}"
+                                alt="Foto Pimpinan"
+                                class="img-fluid rounded"
+                                style="max-width: 250px;"
+                            >
                         </div>
                         @endif
                     </div>
                     <!-- Kolom Teks -->
-                    <div class="col-lg-6 content-container" data-anime='{ "effect": "slide", "color": "#ffffff", "direction":"lr", "easing": "easeOutQuad", "delay":50 }'>
+                    <div class="col-lg-5 content-container" data-anime='{ "effect": "slide", "color": "#ffffff", "direction":"lr", "easing": "easeOutQuad", "delay":50 }'>
                         @if ($pimpinanStaff && $pimpinanStaff->kata_sambutan)
                         <p class="section-text">
                             {!! Str::before($pimpinanStaff->kata_sambutan, '</p>') . '</p>' !!}

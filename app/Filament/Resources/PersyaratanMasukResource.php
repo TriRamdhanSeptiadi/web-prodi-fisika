@@ -28,7 +28,8 @@ class PersyaratanMasukResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('persyaratan')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->helperText('Teks singkat persyaratan masuk (opsional). Kosongkan jika tidak ada informasi tambahan.'),
             ]);
     }
 

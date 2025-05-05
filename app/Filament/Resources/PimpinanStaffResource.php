@@ -35,7 +35,7 @@ class PimpinanStaffResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('foto')->required(),
+                Forms\Components\TextInput::make('nama')->required(),
                 Forms\Components\Select::make('status')
                     ->options([
                         'Kepala Program Studi Fisika' => 'Kepala Program Studi Fisika',
@@ -44,13 +44,22 @@ class PimpinanStaffResource extends Resource
                     ])
                     ->reactive()
                     ->required(),
-                Forms\Components\TextInput::make('nama')->required(),
+                Forms\Components\FileUpload::make('foto')
+                    ->label('Foto')
+                    ->image()
+                    ->imageEditor()
+                    ->imageResizeTargetWidth(1000)
+                    ->imageResizeTargetHeight(1700)
+                    ->required(),
                 Forms\Components\RichEditor::make('kata_sambutan')
-                ->visible(fn (Get $get) => $get('status') === 'Kepala Program Studi Fisika') 
-                ->required(fn (Get $get): bool => $get('status') === 'Kepala Program Studi Fisika')
-                ->columnSpanFull(),
-                Forms\Components\TextInput::make('id_google_scholar'),
-                Forms\Components\TextInput::make('nidn'),
+                    ->visible(fn (Get $get) => $get('status') === 'Kepala Program Studi Fisika') 
+                    ->required(fn (Get $get): bool => $get('status') === 'Kepala Program Studi Fisika')
+                    ->columnSpanFull()
+                    ->label('Kata Sambutan'),
+                Forms\Components\TextInput::make('id_google_scholar')
+                    ->label('ID Google Scholar'),
+                Forms\Components\TextInput::make('nidn')
+                    ->label('NIDN'),
                 Forms\Components\TextInput::make('email'),
             ]);
     }
@@ -59,13 +68,17 @@ class PimpinanStaffResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('foto'),
-                Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('nama'),
+                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\ImageColumn::make('foto'),
                 Tables\Columns\TextColumn::make('kata_sambutan')
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('id_google_scholar'),
-                Tables\Columns\TextColumn::make('nidn'),
+                    ->limit(50)
+                    ->label('Kata Sambutan')
+                    ->html(),
+                Tables\Columns\TextColumn::make('id_google_scholar')
+                    ->label('ID Google Scholar'),
+                Tables\Columns\TextColumn::make('nidn')
+                    ->label('NIDN'),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

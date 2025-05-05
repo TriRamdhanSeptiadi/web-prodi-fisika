@@ -27,7 +27,16 @@ class TentangBiologiResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('thumbnail')->required(),
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->label('Gambar')
+                    ->image()
+                    ->imageEditor() 
+                    ->imageResizeMode('cover') 
+                    ->imageCropAspectRatio('960:600') 
+                    ->imageResizeTargetWidth(960)
+                    ->imageResizeTargetHeight(600)
+                    ->directory('Gambar') 
+                    ->required(),
                 Forms\Components\RichEditor::make('deskripsi')
                         ->required()
                         ->columnSpanFull(),
@@ -38,9 +47,11 @@ class TentangBiologiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('thumbnail'),
+                Tables\Columns\ImageColumn::make('thumbnail')
+                    ->label('Gambar'),
                 Tables\Columns\TextColumn::make('deskripsi')
-                    ->limit(50),
+                    ->limit(50)
+                    ->html(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

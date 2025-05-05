@@ -893,7 +893,7 @@
             </div>
         </section>
         <!-- End Section -->
-         <!-- Start Section -->
+        <!-- Start Section -->
         <section id="peluang-karir" class="mb-4 pb-0">
             <div class="container text-center">
                 <div class="card shadow-lg border-0 rounded-3 overflow-hidden" data-anime='{ "opacity": [0,1], "duration": 600, "easing": "easeOutQuad" }'>
@@ -906,6 +906,40 @@
                             Lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.    
                         </p>
 
+                        <!-- Gambar-gambar -->
+                        @php
+                            $imageCaptions = [
+                                1 => 'Waktu Tunggu Lulusan Program Studi S1 - Teknik Informatika',
+                                2 => 'Tingkat Kesesuaian Pekerjaan',
+                                3 => 'Lingkup Tempat Kerja',
+                                4 => 'Survey Kepuasan Pengguna Lulusan Teknik Informatika Universitas Wanita Internasional',
+                            ];
+                        @endphp
+                        <div class="row mt-4">
+                            @foreach ($tracerStudy as $item)
+                                @for ($i = 1; $i <= 4; $i++)
+                                    @php
+                                        $field = 'gambar' . $i;
+                                    @endphp
+
+                                    @if (! empty($item->$field))
+                                        <div class="col-md-6 col-12 mb-4 d-flex flex-column align-items-center">
+                                            <img
+                                                class="img-fluid w-75 animation-float"
+                                                src="{{ asset('storage/' . $item->$field) }}"
+                                                alt="Gambar {{ $i }}"
+                                                data-anime='{ "effect":"slide", "direction":"lr", "delay":{{ 50 * $i }} }'
+                                            >
+
+                                            {{-- Caption otomatis dari map --}}
+                                            <p class="mt-2 text-center">
+                                                {{ $imageCaptions[$i] }}
+                                            </p>
+                                        </div>
+                                    @endif
+                                @endfor
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

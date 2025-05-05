@@ -28,8 +28,9 @@ class AkreditasiResource extends Resource
         return $form
             ->schema([
                 Forms\Components\RichEditor::make('teks')
-                ->columnSpanFull(),
-            Forms\Components\FileUpload::make('foto')->required()
+                ->columnSpanFull()
+                ->helperText('Teks singkat akreditasi (opsional). Kosongkan jika tidak ada informasi tambahan.'),
+                Forms\Components\FileUpload::make('foto')->required()
             ]);
     }
 
@@ -38,7 +39,8 @@ class AkreditasiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('teks')
-                ->limit(50),
+                ->limit(50)
+                ->html(),
             Tables\Columns\ImageColumn::make('foto'),
             Tables\Columns\TextColumn::make('created_at')
                 ->dateTime()
